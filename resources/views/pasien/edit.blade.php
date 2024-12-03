@@ -21,22 +21,23 @@
                     <label for="nama">Nama Pasien</label>
                     <input type="text" class="form-control" id="nama" name="nama" value="{{ $pasien->nama }}" required>
                 </div>
-
                 <div class="form-group">
                     <label for="alamat">Alamat</label>
-                    <textarea class="form-control" id="alamat" name="alamat" rows="3" required>{{ $pasien->alamat }}</textarea>
+                    <textarea class="form-control" id="alamat" name="alamat" required>{{ $pasien->alamat }}</textarea>
                 </div>
-
                 <div class="form-group">
-                    <label for="no_telepon">Nomor Telepon</label>
-                    <input type="text" class="form-control" id="no_telepon" name="no_telepon" value="{{ $pasien->no_telepon }}" required>
+                    <label for="telepon">Nomor Telepon</label>
+                    <input type="text" class="form-control" id="telepon" name="telepon" value="{{ $pasien->telepon }}" required>
                 </div>
-
                 <div class="form-group">
-                    <label for="tanggal_lahir">Tanggal Lahir</label>
-                    <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir" value="{{ $pasien->tanggal_lahir }}" required>
+                    <label for="idDokter">ID Dokter</label>
+                    <input type="text" class="form-control" id="idDokter" name="idDokter" value="{{ $pasien->idDokter }}" required>
                 </div>
-
+                <div class="form-group">
+                    <label for="Dosis">Dosis</label>
+                    <input type="text" class="form-control" id="Dosis" name="Dosis" value="{{ $pasien->Dosis }}" required>
+                </div>
+                <a href="{{ route('pasien.index') }}" class="btn btn-warning">Cancel</a>
                 <button type="submit" class="btn btn-primary">Update</button>
             </form>
         </div>

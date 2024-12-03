@@ -46,7 +46,7 @@ class PasienController extends Controller
         $pasien->idDokter = $request->idDokter;
         $pasien->Dosis = $request->Dosis;
         $pasien->save();
-        return redirect()->route('pasien');
+        return redirect()->route('pasien.index');
     }
 
 

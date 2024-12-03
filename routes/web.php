@@ -27,13 +27,13 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::middleware(['auth'])->group(function () {
     // ini adalah route untuk pasien
-    Route::get('/pasien', [App\Http\Controllers\PasienController::class, 'index'])->name('pasien');
+    Route::get('/pasien/{id}', [App\Http\Controllers\PasienController::class, 'show'])->name('pasien.show');
+    Route::get('/pasien', [App\Http\Controllers\PasienController::class, 'index'])->name('pasien.index');
     Route::get('/pasien/create', [App\Http\Controllers\PasienController::class, 'create'])->name('pasien.create');
     Route::post('/pasien/store', [App\Http\Controllers\PasienController::class, 'store'])->name('pasien.store');
     Route::get('/pasien/edit/{id}', [App\Http\Controllers\PasienController::class, 'edit'])->name('pasien.edit');
-    Route::post('/pasien/update/{id}', [App\Http\Controllers\PasienController::class, 'update'])->name('pasien.update');
+    Route::put('/pasien/update/{id}', [App\Http\Controllers\PasienController::class, 'update'])->name('pasien.update');
     Route::delete('/pasien/{id}', [App\Http\Controllers\PasienController::class, 'destroy'])->name('pasien.destroy');
-
     Route::get('/pasien/search', [App\Http\Controllers\PasienController::class, 'search'])->name('pasien.search');
 
     // ini adalah route untuk jadwal pasien

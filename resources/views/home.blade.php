@@ -3,7 +3,10 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Dashboard</h1>
+    <div class="dashboard-header">
+        <img src="/path/to/your/logo.png" alt="Clinic Logo" class="clinic-logo">
+        <h1>Dashboard</h1>
+    </div>
 @stop
 
 @section('content')
@@ -11,8 +14,17 @@
 @stop
 
 @section('css')
-    {{-- Add here extra stylesheets --}}
-    {{-- <link rel="stylesheet" href="/css/admin_custom.css"> --}}
+    <style>
+        .dashboard-header {
+            display: flex;
+            align-items: center;
+        }
+        .clinic-logo {
+            width: 50px;
+            height: 50px;
+            margin-right: 15px;
+        }
+    </style>
 @stop
 
 @section('js')

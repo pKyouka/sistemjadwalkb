@@ -24,7 +24,9 @@
                                 <th>Nama</th>
                                 <th>Alamat</th>
                                 <th>Telepon</th>
-                                <th>Email</th>
+                                <th>IdDokter</th>
+                                <th>Dosis</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -34,7 +36,8 @@
                                     <td>{{ $item->nama }}</td>
                                     <td>{{ $item->alamat }}</td>
                                     <td>{{ $item->telepon }}</td>
-                                    <td>{{ $item->email }}</td>
+                                    <td>{{ $item->idDokter }}</td>
+                                    <td>{{ $item->Dosis }}</td>
                                     <td>
                                         <a href="{{ route('pasien.edit', $item->id) }}" class="btn btn-warning">
                                             <i class="fas fa-edit"></i>
