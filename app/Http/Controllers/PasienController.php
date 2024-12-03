@@ -28,7 +28,7 @@ class PasienController extends Controller
         $pasien->idDokter = $request->idDokter;
         $pasien->Dosis = $request->Dosis;
         $pasien->save();
-        return redirect()->route('pasien');
+        return redirect()->route('pasien.index');
     }
 
     public function edit($id)
@@ -52,9 +52,8 @@ class PasienController extends Controller
 
     public function destroy($id)
     {
-        $pasien = Pasien::find($id);
-        $pasien->delete();
-        return redirect()->route('pasien');
+        Pasien::findOrFail($id)->delete();
+        return redirect()->route('pasien.index');
     }
 
     public function search(Request $request)

@@ -27,7 +27,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::middleware(['auth'])->group(function () {
     // ini adalah route untuk pasien
-    Route::get('/pasien/{id}', [App\Http\Controllers\PasienController::class, 'show'])->name('pasien.show');
     Route::get('/pasien', [App\Http\Controllers\PasienController::class, 'index'])->name('pasien.index');
     Route::get('/pasien/create', [App\Http\Controllers\PasienController::class, 'create'])->name('pasien.create');
     Route::post('/pasien/store', [App\Http\Controllers\PasienController::class, 'store'])->name('pasien.store');
@@ -37,7 +36,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/pasien/search', [App\Http\Controllers\PasienController::class, 'search'])->name('pasien.search');
 
     // ini adalah route untuk jadwal pasien
-    Route::get('/jadwal', [App\Http\Controllers\JadwalController::class, 'index'])->name('jadwal');
+    Route::get('/jadwal', [App\Http\Controllers\JadwalController::class, 'index'])->name('jadwal.index');
     Route::get('/jadwal/create', [App\Http\Controllers\JadwalController::class, 'create'])->name('jadwal.create');
     Route::post('/jadwal/store', [App\Http\Controllers\JadwalController::class, 'store'])->name('jadwal.store');
     Route::get('/jadwal/edit/{id}', [App\Http\Controllers\JadwalController::class, 'edit'])->name('jadwal.edit');

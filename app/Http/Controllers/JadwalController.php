@@ -34,7 +34,7 @@ class JadwalController extends Controller
         $jadwal->metodePengingat = $request->metodePengingat;
         $jadwal->tanggalSuntikBerikutnya = $request->tanggalSuntikBerikutnya;
         $jadwal->save();
-        return redirect()->route('jadwal');
+        return redirect()->route('jadwal.index');
     }
 
     public function edit($id)
@@ -54,7 +54,7 @@ class JadwalController extends Controller
         $jadwal->metodePengingat = $request->metodePengingat;
         $jadwal->tanggalSuntikBerikutnya = $request->tanggalSuntikBerikutnya;
         $jadwal->save();
-        return redirect()->route('jadwal');
+        return redirect()->route('jadwal.index');
     }
 
     public function destroy($id)
