@@ -3,14 +3,15 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <div class="dashboard-header">
-        <img src="/path/to/your/logo.png" alt="Clinic Logo" class="clinic-logo">
         <h1>Dashboard</h1>
     </div>
 @stop
 
 @section('content')
     <p>Selamat datang di Sistem KB Rumah Sakit </p>
+    <div class="text-center">
+        <img src="/path/to/your/logo.png" alt="Clinic Logo" style="max-width: 80%; height: auto; margin: 20px auto;">
+    </div>
 @stop
 
 @section('css')
