@@ -25,7 +25,7 @@ class PasienController extends Controller
         $pasien->nama = $request->nama;
         $pasien->alamat = $request->alamat;
         $pasien->telepon = $request->telepon;
-        $pasien->idDokter = $request->idDokter;
+        $pasien->namaDokter = $request->namaDokter;
         $pasien->Dosis = $request->Dosis;
         $pasien->save();
         return redirect()->route('pasien.index');
@@ -43,7 +43,7 @@ class PasienController extends Controller
         $pasien->nama = $request->nama;
         $pasien->alamat = $request->alamat;
         $pasien->telepon = $request->telepon;
-        $pasien->idDokter = $request->idDokter;
+        $pasien->namaDokter = $request->namaDokter;
         $pasien->Dosis = $request->Dosis;
         $pasien->save();
         return redirect()->route('pasien.index');

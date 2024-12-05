@@ -3,24 +3,38 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1 style="color: #008080">Dashboard</h1>
+    <h1 class="text-gradient fw-bold mb-3">
+        <i class="fas fa-syringe me-2"></i>
+        Data Pasien Suntik
+    </h1>
 @stop
+
+<style>
+.text-gradient {
+    background: linear-gradient(45deg, #00a3a3, #008080);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+</style>
 
 @section('content')
     <div class="container">
-        <div class="mb-3">
-            <a href="{{ route('pasien.create') }}" class="btn" style="background-color: #008080; color: white;">
+        <div class="mb-4">
+            <a href="{{ route('pasien.create') }}" class="btn btn-modern">
                 <i class="fas fa-plus"></i> Tambah Data Pasien
             </a>
         </div>
-        <div class="card shadow-sm">
-            <div class="card-header" style="background-color: #008080; color: white;">
+        <div class="card custom-card">
+            <div class="card-header">
                 <h3 class="card-title">Data Pasien</h3>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-hover">
-                        <thead style="background-color: #008080; color: white;">
+                    <table class="table table-hover modern-table">
+                        <thead>
                             <tr>
                                 <th>No</th>
                                 <th>Nama</th>
@@ -41,7 +55,7 @@
                                     <td>{{ $item->namaDokter }}</td>
                                     <td>{{ $item->Dosis }}</td>
                                     <td>
-                                        <a href="{{ route('pasien.edit', $item->id) }}" class="btn btn-sm" style="background-color: #008080; color: white;">
+                                        <div class="action-buttons">
                                             <i class="fas fa-edit"></i>
                                         </a>
                                         <form action="{{ route('pasien.destroy', $item->id) }}" method="POST" class="d-inline">
@@ -64,24 +78,44 @@
 
 @section('css')
     <style>
-        .card {
+        .btn-modern {
+            background-color: #008080;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-modern:hover {
+            background-color: #006666;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .custom-card {
             border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-top: 3px solid #008080;
         }
-        .table {
-            border-radius: 5px;
-            overflow: hidden;
+
+        .modern-table {
+            width: 100%;
         }
-        .btn {
-            border-radius: 5px;
-            transition: all 0.3s;
+
+        .modern-table thead th {
+            background-color: #008080;
+            color: white;
+            padding: 12px;
         }
-        .btn:hover {
-            opacity: 0.9;
-            transform: scale(1.05);
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-buttons .btn:hover {
+            opacity: 0.8;
         }
     </style>
-@stop
-
-@section('js')
-    <script> console.log("Hi, I'm using the Laravel-AdminLTE package!"); </script>
 @stop

@@ -27,26 +27,49 @@
                                 <i class="fas fa-user me-2"></i>ID Pasien
                             </label>
                             <div class="input-group">
-                                <select name="idpasien" class="form-select rounded-start @error('idpasien') is-invalid @enderror" id="pasienSelect">
+                                <input type="text"
+                                       class="form-control @error('idpasien') is-invalid @enderror"
+                                       id="searchPasien"
+                                       placeholder="Cari pasien..."
+                                       autocomplete="off">
+                                <select name="idpasien" class="form-select d-none" id="pasienSelect">
                                     <option value="">-- Pilih Pasien --</option>
                                     @foreach($pasiens as $pasien)
                                         <option value="{{ $pasien->id }}">{{ $pasien->id }} - {{ $pasien->nama }}</option>
                                     @endforeach
                                 </select>
-                                <input type="text" name="idpasien_manual"
-                                       class="form-control @error('idpasien') is-invalid @enderror"
-                                       id="pasienInput" style="display: none;"
-                                       placeholder="Masukkan ID Pasien">
-                                <button class="btn btn-outline-primary" type="button" onclick="toggleInput()">
-                                    <i class="fas fa-sync-alt"></i>
-                                </button>
                             </div>
-                            <div id="searchResults" class="list-group shadow-sm position-absolute w-100 mt-1 z-3"></div>
+                            <div id="searchResults" class="list-group position-absolute w-100 mt-1 z-3"></div>
                             @error('idpasien')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                     </div>
+
+                    <script>
+                    document.getElementById('searchPasien').addEventListener('input', function() {
+                        const searchText = this.value.toLowerCase();
+                        const select = document.getElementById('pasienSelect');
+                        const results = document.getElementById('searchResults');
+                        results.innerHTML = '';
+
+                        if (searchText.length > 0) {
+                            Array.from(select.options).forEach(option => {
+                                if (option.text.toLowerCase().includes(searchText) && option.value) {
+                                    const div = document.createElement('div');
+                                    div.className = 'list-group-item list-group-item-action';
+                                    div.textContent = option.text;
+                                    div.onclick = () => {
+                                        select.value = option.value;
+                                        this.value = option.text;
+                                        results.innerHTML = '';
+                                    };
+                                    results.appendChild(div);
+                                }
+                            });
+                        }
+                    });
+                    </script>
 
                     <!-- Jenis Suntik -->
                     <div class="col-md-6">
@@ -54,9 +77,14 @@
                             <label class="form-label text-primary fw-bold">
                                 <i class="fas fa-syringe me-2"></i>Jenis Suntik
                             </label>
-                            <input type="text" name="jenisSuntik"
-                                   class="form-control @error('jenisSuntik') is-invalid @enderror"
-                                   placeholder="Masukkan jenis suntik" required>
+                            <select name="jenisSuntik"
+                                    class="form-select @error('jenisSuntik') is-invalid @enderror" required>
+                                <option value="">-- Pilih Jenis Suntik --</option>
+                                <option value="KB 1 Bulan">KB 1 Bulan</option>
+                                <option value="KB 3 Bulan">KB 3 Bulan</option>
+                                <option value="KB 6 Bulan">KB 6 Bulan</option>
+                                <option value="KB 1 Tahun">KB 1 Tahun</option>
+                            </select>
                             @error('jenisSuntik')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -69,9 +97,10 @@
                             <label class="form-label text-primary fw-bold">
                                 <i class="fas fa-clock me-2"></i>Jadwal
                             </label>
-                            <input type="text" name="jadwal"
-                                   class="form-control @error('jadwal') is-invalid @enderror"
-                                   placeholder="Masukkan jadwal" required>
+                            <select name="jadwal" class="form-select @error('jadwal') is-invalid @enderror" required>
+                                <option value="">-- Pilih Jadwal --</option>
+                                <option value="Senin">fruetd</option>
+                            </select>
                             @error('jadwal')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -114,9 +143,7 @@
                             <select name="metodePengingat"
                                     class="form-select @error('metodePengingat') is-invalid @enderror" required>
                                 <option value="">-- Pilih Metode --</option>
-                                <option value="SMS">SMS</option>
                                 <option value="WhatsApp">WhatsApp</option>
-                                <option value="Email">Email</option>
                             </select>
                             @error('metodePengingat')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -141,7 +168,7 @@
 
                 <!-- Action Buttons -->
                 <div class="d-flex justify-content-end gap-3 mt-4 pt-3 border-top">
-                    <a href="{{ route('jadwal.index') }}" class="btn btn-light">
+                    <a href="{{ route('jadwal.create') }}" class="btn btn-light">
                         <i class="fas fa-arrow-left me-2"></i>Kembali
                     </a>
                     <button type="submit" class="btn btn-primary">
@@ -161,55 +188,109 @@
         background: #ffffff;
         transition: all 0.3s ease-in-out;
         border: none;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
+
     .card:hover {
         transform: translateY(-5px);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
     }
+
+    .card-body {
+        padding: 2rem;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
     .form-control, .form-select {
         border-radius: 8px;
         padding: 0.75rem;
         border: 1px solid #008080;
         color: #008080;
         transition: all 0.2s ease;
+        height: 48px;
+        width: 100%;
     }
+
     .form-control:focus, .form-select:focus {
         border-color: #008080;
         box-shadow: 0 0 0 0.2rem rgba(0, 128, 128, 0.25);
         color: #008080;
     }
+
+    .row {
+        margin: 0 -15px;
+    }
+
+    .col-md-6 {
+        padding: 0 15px;
+    }
+
     .btn {
         border-radius: 8px;
         padding: 0.75rem 1.5rem;
         transition: all 0.3s ease;
+        font-weight: 600;
+        min-width: 120px;
     }
+
     .btn-primary {
         background: #008080;
         border-color: #008080;
     }
+
     .btn-primary:hover {
         background: #006666;
         transform: translateY(-2px);
     }
+
     .form-label {
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.75rem;
         color: #008080;
-        font-size: 0.875rem;
+        font-size: 0.95rem;
+        display: block;
     }
+
     .invalid-feedback {
         font-size: 0.875rem;
-        color: #008080;
+        color: #dc3545;
+        margin-top: 0.25rem;
     }
+
     .text-primary {
         color: #008080 !important;
     }
+
     .bg-primary {
         background-color: #008080 !important;
+    }
+
+    .list-group-item {
+        padding: 0.75rem 1rem;
+        border-color: #008080;
     }
 </style>
 @stop
 
 @section('js')
 <script>
-    // Add your JavaScript here
+    // Form validation
+    (function() {
+        'use strict';
+        window.addEventListener('load', function() {
+            var forms = document.getElementsByClassName('needs-validation');
+            Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
 </script>
 @stop

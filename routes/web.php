@@ -36,13 +36,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/pasien/search', [App\Http\Controllers\PasienController::class, 'search'])->name('pasien.search');
 
     // ini adalah route untuk jadwal pasien
-    Route::get('/jadwal', [App\Http\Controllers\JadwalController::class, 'index'])->name('jadwal.index');
+    Route::get('/jadwal', [App\Http\Controllers\JadwalController::class, 'index'])->name('jadwal');
     Route::get('/jadwal/create', [App\Http\Controllers\JadwalController::class, 'create'])->name('jadwal.create');
     Route::post('/jadwal/store', [App\Http\Controllers\JadwalController::class, 'store'])->name('jadwal.store');
     Route::get('/jadwal/edit/{id}', [App\Http\Controllers\JadwalController::class, 'edit'])->name('jadwal.edit');
     Route::post('/jadwal/update/{id}', [App\Http\Controllers\JadwalController::class, 'update'])->name('jadwal.update');
     Route::delete('/jadwal/{id}', [App\Http\Controllers\JadwalController::class, 'destroy'])->name('jadwal.destroy');
     Route::get('/jadwal/{id}', [App\Http\Controllers\JadwalController::class, 'show'])->name('jadwal.show');
+
 
     // ini adalah route untuk riwayat pasien
     Route::get('/riwayat', [App\Http\Controllers\RiwayatController::class, 'index'])->name('riwayat');

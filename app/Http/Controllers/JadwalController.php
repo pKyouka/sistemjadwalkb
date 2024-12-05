@@ -34,7 +34,7 @@ class JadwalController extends Controller
         $jadwal->metodePengingat = $request->metodePengingat;
         $jadwal->tanggalSuntikBerikutnya = $request->tanggalSuntikBerikutnya;
         $jadwal->save();
-        return redirect()->route('jadwal.index');
+        return redirect()->route('jadwal');
     }
 
     public function edit($id)
@@ -42,6 +42,8 @@ class JadwalController extends Controller
         $jadwal = Jadwal::find($id);
         return view('jadwal.edit', compact('jadwal'));
     }
+
+
 
     public function update(Request $request, $id)
     {
@@ -54,14 +56,17 @@ class JadwalController extends Controller
         $jadwal->metodePengingat = $request->metodePengingat;
         $jadwal->tanggalSuntikBerikutnya = $request->tanggalSuntikBerikutnya;
         $jadwal->save();
-        return redirect()->route('jadwal.index');
+        return redirect()->route('jadwal');
     }
 
     public function destroy($id)
     {
         $jadwal = Jadwal::find($id);
-        $jadwal->delete();
-        return redirect()->route('jadwal');
+        if ($jadwal) {
+            $jadwal->delete();
+            return redirect()->route('jadwal');
+        }
+        return redirect()->route('jadwal')->with('error', 'Jadwal not found');
     }
 
     public function searchPasien(Request $request)

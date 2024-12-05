@@ -13,7 +13,7 @@ class Pasien extends Model
         'nama',
         'alamat',
         'telepon',
-        'idDokter',
+        'namaDokter',
         'dosis',
     ];
 }
