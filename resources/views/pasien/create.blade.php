@@ -70,7 +70,7 @@
                     </div>
                 </div>
 
-                <div class="mt-4">
+                <div class="mt-4 text-right">
                     <button type="submit" class="btn btn-lg px-4" style="background-color: #008080; color: white">
                         <i class="fas fa-save mr-2"></i>Simpan
                     </button>

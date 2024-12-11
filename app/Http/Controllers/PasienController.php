@@ -7,11 +7,13 @@ use App\Models\Pasien;
 
 class PasienController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $pasien = Pasien::all();
+        $perPage = $request->get('perPage', 10); // Default 10 data per halaman
+        $pasien = Pasien::paginate($perPage);
         return view('pasien.index', compact('pasien'));
     }
+
 
     public function create()
     {

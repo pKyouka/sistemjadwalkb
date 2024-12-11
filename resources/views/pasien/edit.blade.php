@@ -3,7 +3,15 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1 class="text-teal">Edit Data Pasien</h1>
+    <div class="d-flex align-items-center justify-content-between mb-3">
+        <div>
+            <h1 class="m-0" style="color: #008080">
+                <i class="fas fa-user-edit mr-2"></i>
+                Edit Data Pasien
+            </h1>
+            <small class="text-muted">Modify patient information</small>
+        </div>
+    </div>
 @stop
 
 @section('content')
@@ -43,7 +51,7 @@
                         </div>
                     </div>
                     <div class="mt-4 text-right">
-                        <a href="{{ route('pasien.index') }}" class="btn btn-light shadow-sm mr-2">
+                        <a href="{{ route('pasien.index') }}" class="btn btn-secondary shadow-sm mr-2">
                             <i class="fas fa-times"></i> Cancel
                         </a>
                         <button type="submit" class="btn shadow-sm text-white" style="background-color: #008080">

@@ -343,28 +343,22 @@ return [
         //     'icon' => 'fas fa-fw fa-lock',
         // ],
         [
-            'text' => 'Menu',
-            'icon' => 'fas fa-fw fa-share',
-            'submenu' => [
-                [
-                    'text' => 'Pasien',
-                    'url' => 'pasien',
-                    'icon' => 'far fa-fw fa-hospital-user',
-                    'label_color' => 'success',
-                ],
-                [
-                    'text' => 'Jadwal',
-                    'url' => 'jadwal',
-                    'icon' => 'far fa-fw fa-calendar-alt',
-                ],
-                [
-                    'text' => 'Riwayat',
-                    'url' => 'riwayat',
-                    'icon' => 'far fa-fw fa-calendar-alt',
-                ],
-            ],
+            'text' => 'Pasien',
+            'url' => 'pasien',
+            'icon' => 'far fa-fw fa-hospital-user',
+            'label_color' => 'success',
         ],
-        ['header' => 'INFO'],
+        [
+            'text' => 'Jadwal',
+            'url' => 'jadwal',
+            'icon' => 'far fa-fw fa-calendar-alt',
+        ],
+        [
+            'text' => 'Riwayat',
+            'url' => 'riwayat',
+            'icon' => 'far fa-fw fa-calendar-alt',
+        ],
+
     ],
 
     /*

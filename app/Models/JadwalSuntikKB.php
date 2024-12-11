@@ -5,17 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Jadwal extends Model
+class JadwalSuntikKB extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'namaPasien',
-        'jenisSuntik',
-        'jadwal',
+        'noTelepon',
         'tanggalSuntik',
         'tanggalPengingat',
-        'metodePengingat',
-        'tanggalSuntikBerikutnya'
+        'jadwalPengingat',
+        'jenisPengingat'
     ];
 }

@@ -45,6 +45,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/jadwal/{id}', [App\Http\Controllers\JadwalController::class, 'show'])->name('jadwal.show');
 
 
+    // ini route pengingat
+    Route::get('/ingat', [App\Http\Controllers\JadwalController::class, 'ingat'])->name('jadwal.pengingat');
+    Route::post('/ingat/store', [App\Http\Controllers\JadwalController::class, 'storeJadwalPengingat'])->name('jadwal.storeJadwalPengingat');
+    Route::get('/ingat/edit/{id}', [App\Http\Controllers\JadwalController::class, 'ingatEdit'])->name('jadwal.pengingat.edit');
+    Route::post('/ingat/update/{id}', [App\Http\Controllers\JadwalController::class, 'ingatUpdate'])->name('jadwal.pengingat.update');
+    Route::delete('/ingat/{id}', [App\Http\Controllers\JadwalController::class, 'ingatDestroy'])->name('jadwal.pengingat.destroy');
+
+
     // ini adalah route untuk riwayat pasien
     Route::get('/riwayat', [App\Http\Controllers\RiwayatController::class, 'index'])->name('riwayat');
     Route::get('/riwayat/create', [App\Http\Controllers\RiwayatController::class, 'create'])->name('riwayat.create');
