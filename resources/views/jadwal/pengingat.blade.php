@@ -30,28 +30,37 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="form-label fw-bold" style="color: #008080;">
-                                <i class="fas fa-user me-2"></i>Nama Pasien
+                                <i class="fas fa-user me-2"></i>Nama Pasien<span class="text-danger">*</span>
                             </label>
                             <input type="text"
                                    class="form-control @error('nama_pasien') is-invalid @enderror"
                                    name="namaPasien"
-                                   required>
-                            @error('namaasien')
+                                   required
+                                   oninvalid="this.setCustomValidity('Nama pasien harus diisi')"
+                                   oninput="setCustomValidity('')"
+                                   placeholder="Masukkan nama pasien">
+                            @error('namaPasien')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
+                            <div class="invalid-feedback">
+                                Nama pasien tidak boleh kosong
+                            </div>
                         </div>
                     </div>
 
                     <!-- Nomor Telepon -->
                     <div class="col-md-6">
-                        <div class="form-group">
+                    <div class="form-group">
                             <label class="form-label fw-bold" style="color: #008080;">
-                                <i class="fas fa-phone me-2"></i>Nomor Telepon
+                                <i class="fas fa-phone me-2"></i>Nomor Telepon<span class="text-danger">*</span>
                             </label>
-                            <input type="tel"
+                            <input type="number"
                                    class="form-control @error('noTelepon') is-invalid @enderror"
                                    name="noTelepon"
-                                   required>
+                                   required
+                                   oninvalid="this.setCustomValidity('Nama pasien harus diisi')"
+                                   oninput="setCustomValidity('')"
+                                   placeholder="Masukkan Nomor Telepon">
                             @error('noTelepon')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -62,13 +71,15 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="form-label fw-bold" style="color: #008080;">
-                                <i class="fas fa-calendar-day me-2"></i>Tanggal Suntik
+                                <i class="fas fa-calendar-day me-2"></i>Tanggal Suntik<span class="text-danger">*</span>
                             </label>
                             <input type="text"
-                                   class="form-control datepicker @error('tanggalSuntik') is-invalid @enderror"
+                                   class="form-control datepicker @error('tanggalPeriksa') is-invalid @enderror"
                                    id="tanggalSuntik"
                                    name="tanggalSuntik"
-                                   required>
+                                   placeholder="Silahkan masukkan tanggal suntik"
+                                   required
+                                   data-min-date="today">
                             @error('tanggalSuntik')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -79,7 +90,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="form-label fw-bold" style="color: #008080;">
-                                <i class="fas fa-clock me-2"></i>Jadwal Pengingat
+                                <i class="fas fa-clock me-2"></i>Jadwal Pengingat<span class="text-danger">*</span>
                             </label>
                             <select class="form-select @error('jadwalPengingat') is-invalid @enderror"
                                     id="jadwalPengingat"
@@ -99,24 +110,26 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="form-label fw-bold" style="color: #008080;">
-                                <i class="fas fa-bell me-2"></i>Tanggal Pengingat
-                            </label>
-                            <input type="text"
-                                   class="form-control @error('tanggalPengingat') is-invalid @enderror"
-                                   id="tanggalPengingat"
-                                   name="tanggalPengingat"
-                                   readonly>
+                            <i class="fas fa-bell me-2"></i>Tanggal Pengingat<span class="text-danger">*</span>
+                        </label>
+                        <input type="text"
+                            class="form-control @error('tanggalPengingat') is-invalid @enderror"
+                            id="tanggalPengingat"
+                            name="tanggalPengingat"
+                            readonly>
+                        <input type="hidden" id="hiddenTanggalPengingat" name="hiddenTanggalPengingat">
                             @error('tanggalPengingat')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                         </div>
                     </div>
+
 
                     <!-- Jenis Pengingat -->
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="form-label fw-bold" style="color: #008080;">
-                                <i class="fas fa-comments me-2"></i>Jenis Pengingat
+                                <i class="fas fa-comments me-2"></i>Jenis Pengingat<span class="text-danger">*</span>
                             </label>
                             <select class="form-select @error('jenisPengingat') is-invalid @enderror"
                                     name="jenisPengingat"

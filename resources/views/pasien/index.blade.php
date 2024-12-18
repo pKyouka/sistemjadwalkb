@@ -59,7 +59,7 @@
                                     <td>{{ $item->Dosis }}</td>
                                     <td>
                                         <div class="action-buttons">
-                                            <a href="{{ route('pasien.edit', $item->id) }}" class="btn btn-sm btn-primary">
+                                            <a href="{{ route('pasien.edit', $item->id) }}" class="btn btn-sm btn-warning">
                                                 <i class="fas fa-edit"></i>
                                             </a>
                                             <form action="{{ route('pasien.destroy', $item->id) }}" method="POST" class="d-inline">

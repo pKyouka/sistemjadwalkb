@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,10 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+
+
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+
 Route::middleware(['auth'])->group(function () {
     // ini adalah route untuk pasien
     Route::get('/pasien', [App\Http\Controllers\PasienController::class, 'index'])->name('pasien.index');
@@ -38,6 +43,7 @@ Route::middleware(['auth'])->group(function () {
     // ini adalah route untuk jadwal pasien
     Route::get('/jadwal', [App\Http\Controllers\JadwalController::class, 'index'])->name('jadwal');
     Route::get('/jadwal/create', [App\Http\Controllers\JadwalController::class, 'create'])->name('jadwal.create');
+    Route::get('/jadwal/periksa', [App\Http\Controllers\JadwalController::class, 'createperiksa'])->name('jadwal.periksa');
     Route::post('/jadwal/store', [App\Http\Controllers\JadwalController::class, 'store'])->name('jadwal.store');
     Route::get('/jadwal/edit/{id}', [App\Http\Controllers\JadwalController::class, 'edit'])->name('jadwal.edit');
     Route::post('/jadwal/update/{id}', [App\Http\Controllers\JadwalController::class, 'update'])->name('jadwal.update');
@@ -47,10 +53,13 @@ Route::middleware(['auth'])->group(function () {
 
     // ini route pengingat
     Route::get('/ingat', [App\Http\Controllers\JadwalController::class, 'ingat'])->name('jadwal.pengingat');
-    Route::post('/ingat/store', [App\Http\Controllers\JadwalController::class, 'storeJadwalPengingat'])->name('jadwal.storeJadwalPengingat');
+    Route::post('/ingat/proses', [App\Http\Controllers\JadwalController::class, 'storeJadwalPengingat'])->name('jadwal.storeJadwalPengingat');
+    Route::post('/ingat/store', [App\Http\Controllers\JadwalController::class, 'storeJadwalPeriksa'])->name('jadwal.storeJadwalPeriksa');
     Route::get('/ingat/edit/{id}', [App\Http\Controllers\JadwalController::class, 'ingatEdit'])->name('jadwal.pengingat.edit');
     Route::post('/ingat/update/{id}', [App\Http\Controllers\JadwalController::class, 'ingatUpdate'])->name('jadwal.pengingat.update');
     Route::delete('/ingat/{id}', [App\Http\Controllers\JadwalController::class, 'ingatDestroy'])->name('jadwal.pengingat.destroy');
+    Route::post('/ingat/update-jadwal/{id}', [App\Http\Controllers\JadwalController::class, 'updateJadwalPengingat'])->name('jadwal.updateJadwalPengingat');
+    Route::post('/periksa/update/{id}', [App\Http\Controllers\JadwalController::class, 'updateJadwalPeriksa'])->name('jadwal.updateJadwalPeriksa');
 
 
     // ini adalah route untuk riwayat pasien

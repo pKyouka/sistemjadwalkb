@@ -1,16 +1,16 @@
 @extends('layouts.app')
 
-@section('title', 'Edit Pengingat')
+@section('title', 'Edit Periksa')
 
 @section('content_header')
 <div class="d-flex align-items-center mb-4 animate__animated animate__fadeIn">
     <div>
         <h1 class="m-0 fw-bold" style="color: #008080; text-shadow: 2px 2px 4px rgba(0,0,0,0.1);">
-            Edit Pengingat Suntik KB
+            Edit Form Periksa Suntik KB
         </h1>
         <p class="text-muted mb-0 mt-1">
             <i class="fas fa-info-circle me-1"></i>
-            Ubah jadwal pengingat suntik KB Anda disini
+            Edit jadwal periksa suntik KB Anda disini
         </p>
     </div>
 </div>
@@ -20,10 +20,10 @@
 <div class="container-fluid">
     <div class="card shadow-lg border-0 rounded-3 overflow-hidden">
         <div class="card-header text-white p-4" style="background-color: #008080;">
-            <h5 class="m-0"><i class="fas fa-edit me-2"></i>Form Edit Pengingat</h5>
+            <h5 class="m-0"><i class="fas fa-edit me-2"></i>Edit Form Periksa</h5>
         </div>
         <div class="card-body p-4">
-            <form action="{{ route('jadwal.updateJadwalPengingat', $pengingat->id) }}" method="POST" class="needs-validation" novalidate>
+            <form action="{{ route('jadwal.updateJadwalPeriksa', $jadwal->id) }}" method="POST" class="needs-validation" novalidate>
                 @csrf
                 @method('PUT')
                 <div class="row g-4">
@@ -36,8 +36,9 @@
                             <input type="text"
                                    class="form-control @error('namaPasien') is-invalid @enderror"
                                    name="namaPasien"
-                                   value="{{ old('namaPasien', $pengingat->nama_pasien) }}"
-                                   required>
+                                   value="{{ old('namaPasien', $jadwal->namaPasien) }}"
+                                   required
+                                   placeholder="Masukkan nama pasien">
                             @error('namaPasien')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -50,11 +51,12 @@
                             <label class="form-label fw-bold" style="color: #008080;">
                                 <i class="fas fa-phone me-2"></i>Nomor Telepon<span class="text-danger">*</span>
                             </label>
-                            <input type="number"
+                            <input type="tel"
                                    class="form-control @error('noTelepon') is-invalid @enderror"
                                    name="noTelepon"
-                                   value="{{ old('noTelepon', $pengingat->no_telepon) }}"
-                                   required>
+                                   value="{{ old('noTelepon', $jadwal->noTelepon) }}"
+                                   required
+                                   placeholder="Masukkan Nomor Telepon">
                             @error('noTelepon')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -65,14 +67,15 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="form-label fw-bold" style="color: #008080;">
-                                <i class="fas fa-calendar-day me-2"></i>Tanggal Suntik<span class="text-danger">*</span>
+                                <i class="fas fa-calendar-day me-2"></i>Tanggal Periksa<span class="text-danger">*</span>
                             </label>
                             <input type="text"
                                    class="form-control datepicker @error('tanggalSuntik') is-invalid @enderror"
                                    id="tanggalSuntik"
-                                   name="tanggalSuntik"
-                                   value="{{ old('tanggalSuntik', $pengingat->tanggal_suntik) }}"
-                                   required>
+                                   name="tanggalPeriksa"
+                                   value="{{ old('tanggalPeriksa', $jadwal->tanggalPeriksa) }}"
+                                   required
+                                   placeholder="Masukkan Tanggal Suntik">
                             @error('tanggalSuntik')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -89,9 +92,9 @@
                                     id="jadwalPengingat"
                                     name="jadwalPengingat"
                                     required>
-                                <option value="-1" {{ $pengingat->jadwal_pengingat == -1 ? 'selected' : '' }}>H-1</option>
-                                <option value="-2" {{ $pengingat->jadwal_pengingat == -2 ? 'selected' : '' }}>H-2</option>
-                                <option value="-3" {{ $pengingat->jadwal_pengingat == -3 ? 'selected' : '' }}>H-3</option>
+                                <option value="-1" {{ old('jadwalPengingat', $jadwal->jadwalPengingat) == '-1' ? 'selected' : '' }}>H-1</option>
+                                <option value="-2" {{ old('jadwalPengingat', $jadwal->jadwalPengingat) == '-2' ? 'selected' : '' }}>H-2</option>
+                                <option value="-3" {{ old('jadwalPengingat', $jadwal->jadwalPengingat) == '-3' ? 'selected' : '' }}>H-3</option>
                             </select>
                             @error('jadwalPengingat')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -106,11 +109,14 @@
                                 <i class="fas fa-bell me-2"></i>Tanggal Pengingat<span class="text-danger">*</span>
                             </label>
                             <input type="text"
-                                   class="form-control"
+                                   class="form-control @error('tanggalPengingat') is-invalid @enderror"
                                    id="tanggalPengingat"
                                    name="tanggalPengingat"
-                                   value="{{ old('tanggalPengingat', $pengingat->tanggal_pengingat) }}"
+                                   value="{{ old('tanggalPengingat', $jadwal->tanggalPengingat) }}"
                                    readonly>
+                            @error('tanggalPengingat')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
 
@@ -123,7 +129,7 @@
                             <select class="form-select @error('jenisPengingat') is-invalid @enderror"
                                     name="jenisPengingat"
                                     required>
-                                <option value="whatsapp" {{ $pengingat->jenis_pengingat == 'whatsapp' ? 'selected' : '' }}>WhatsApp</option>
+                                <option value="whatsapp" {{ old('jenisPengingat', $jadwal->jenisPengingat) == 'whatsapp' ? 'selected' : '' }}>WhatsApp</option>
                             </select>
                             @error('jenisPengingat')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -138,7 +144,7 @@
                         <i class="fas fa-arrow-left me-2"></i>Kembali
                     </a>
                     <button type="submit" class="btn px-4" style="background-color: #008080; color: white;">
-                        <i class="fas fa-save me-2"></i>Simpan Perubahan
+                        <i class="fas fa-save me-2"></i>Update Data
                     </button>
                 </div>
             </form>
@@ -156,7 +162,7 @@
     document.addEventListener('DOMContentLoaded', function () {
         flatpickr('.datepicker', {
             dateFormat: "Y-m-d",
-            defaultDate: "{{ $pengingat->tanggal_suntik }}",
+            defaultDate: "{{ old('tanggalPeriksa', $jadwal->tanggalPeriksa) }}",
             allowInput: true,
         });
 

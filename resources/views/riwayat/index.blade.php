@@ -1,95 +1,148 @@
-@extends('layouts.app')
+@extends('adminlte::page')
+
+@section('title', 'Riwayat Aktivitas')
+
+@section('content_header')
+    <h1 class="mb-3" style="color: #008080; font-weight: bold;">
+        <i class="fas fa-history me-2"></i>
+        Riwayat Aktivitas
+    </h1>
+@stop
 
 @section('content')
-<div class="container">
-    <div class="card shadow-sm mb-4" style="border-color: #008080;">
-        <div class="card-header" style="background-color: #008080; color: white;">
-            <h1 class="mb-0" style="font-size: 24px;"><i class="fas fa-history me-2"></i>Riwayat Jadwal</h1>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-hover">
-                    <thead>
-                        <tr style="background-color: #008080; color: white;">
-                            <th class="text-center">No</th>
-                            <th>Nama</th>
-                            <th>Tanggal</th>
-                            <th>Waktu</th>
-                            <th>Keterangan</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($riwayat as $jadwal)
-                        <tr class="align-middle">
-                            <td class="text-center">{{ $loop->iteration }}</td>
-                            <td>{{ $jadwal->nama }}</td>
-                            <td>{{ $jadwal->tanggal }}</td>
-                            <td>{{ $jadwal->waktu }}</td>
-                            <td>{{ $jadwal->keterangan }}</td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card custom-card">
+                <div class="card-header" style="background-color: #008080; color: white;">
+                    <h3 class="card-title">Riwayat Aktivitas Sistem</h3>
+                </div>
+                <div class="card-body">
+                    <!-- Filter Section -->
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <form method="GET" class="d-flex gap-3">
+                            <div class="input-group">
+                                <label class="input-group-text" for="filterType">Filter:</label>
+                                <select class="form-select" name="type" id="filterType">
+                                    <option value="">Semua Aktivitas</option>
+                                    <option value="pasien" {{ request('type') == 'pasien' ? 'selected' : '' }}>Aktivitas Pasien</option>
+                                    <option value="jadwal" {{ request('type') == 'jadwal' ? 'selected' : '' }}>Aktivitas Jadwal</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Terapkan</button>
+                        </form>
+                    </div>
+
+                    <!-- Table Section -->
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Tanggal</th>
+                                    <th>Tipe Aktivitas</th>
+                                    <th>Deskripsi</th>
+                                    <th>Dilakukan Oleh</th>
+                                    <th>Detail</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse($riwayat as $index => $item)
+                                    <tr>
+                                        <td>{{ $index + 1 }}</td>
+                                        <td>{{ $item->created_at->format('d/m/Y H:i') }}</td>
+                                        <td>
+                                            <span class="badge {{ $item->type == 'pasien' ? 'bg-info' : 'bg-success' }}">
+                                                {{ ucfirst($item->type) }}
+                                            </span>
+                                        </td>
+                                        <td>{{ $item->description }}</td>
+                                        <td>{{ $item->user->name ?? 'System' }}</td>
+                                        <td>
+                                            <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#detailModal{{ $item->id }}">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+
+                                            <!-- Detail Modal -->
+                                            <div class="modal fade" id="detailModal{{ $item->id }}" tabindex="-1">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Detail Aktivitas</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <dl class="row">
+                                                                <dt class="col-sm-4">Waktu</dt>
+                                                                <dd class="col-sm-8">{{ $item->created_at->format('d/m/Y H:i:s') }}</dd>
+
+                                                                <dt class="col-sm-4">Tipe</dt>
+                                                                <dd class="col-sm-8">{{ ucfirst($item->type) }}</dd>
+
+                                                                <dt class="col-sm-4">Deskripsi</dt>
+                                                                <dd class="col-sm-8">{{ $item->description }}</dd>
+
+                                                                <dt class="col-sm-4">Data Sebelum</dt>
+                                                                <dd class="col-sm-8"><pre>{{ json_encode(json_decode($item->old_values), JSON_PRETTY_PRINT) }}</pre></dd>
+
+                                                                <dt class="col-sm-4">Data Sesudah</dt>
+                                                                <dd class="col-sm-8"><pre>{{ json_encode(json_decode($item->new_values), JSON_PRETTY_PRINT) }}</pre></dd>
+                                                            </dl>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="6" class="text-center">Tidak ada data riwayat</td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+@stop
 
+@section('css')
 <style>
-.table-hover tbody tr:hover {
-    background-color: #e6f3f3;
-    transition: background-color 0.2s;
-}
-.card {
-    border-radius: 10px;
-}
-.card-header {
-    border-radius: 10px 10px 0 0;
-}
+    .custom-card {
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .card-header {
+        border-radius: 10px 10px 0 0;
+    }
+    .table thead th {
+        background-color: #f8f9fa;
+    }
+    .badge {
+        padding: 8px 12px;
+        border-radius: 20px;
+    }
+    .modal pre {
+        background-color: #f8f9fa;
+        padding: 10px;
+        border-radius: 5px;
+        max-height: 200px;
+        overflow-y: auto;
+    }
 </style>
-@endsection
+@stop
+
+@section('js')
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Auto refresh riwayat table every 5 minutes
-    setInterval(function() {
-        location.reload();
-    }, 300000);
-
-    // Add sorting functionality
-    const getCellValue = (tr, idx) => tr.children[idx].innerText || tr.children[idx].textContent;
-    const comparer = (idx, asc) => (a, b) => ((v1, v2) =>
-        v1 !== '' && v2 !== '' && !isNaN(v1) && !isNaN(v2) ? v1 - v2 : v1.toString().localeCompare(v2)
-    )(getCellValue(asc ? a : b, idx), getCellValue(asc ? b : a, idx));
-
-    document.querySelectorAll('th').forEach(th => th.addEventListener('click', (() => {
-        const table = th.closest('table');
-        const tbody = table.querySelector('tbody');
-        Array.from(tbody.querySelectorAll('tr'))
-            .sort(comparer(Array.from(th.parentNode.children).indexOf(th), this.asc = !this.asc))
-            .forEach(tr => tbody.appendChild(tr));
-    })));
-});
+    // Add any JavaScript functionality here if needed
+    $(document).ready(function() {
+        // Example: Auto-hide alert messages after 5 seconds
+        setTimeout(function() {
+            $('.alert').fadeOut('slow');
+        }, 5000);
+    });
 </script>
-
-<style>
-.table th {
-    cursor: pointer;
-    position: relative;
-}
-
-.table th:hover::after {
-    content: '↕';
-    position: absolute;
-    right: 8px;
-    opacity: 0.5;
-}
-
-.animate-new-row {
-    animation: highlightNew 2s ease-in-out;
-}
-
-@keyframes highlightNew {
-    0% { background-color: #c3e6cb; }
-    100% { background-color: transparent; }
-}
-</style>
+@stop

@@ -345,18 +345,23 @@ return [
         [
             'text' => 'Pasien',
             'url' => 'pasien',
-            'icon' => 'far fa-fw fa-hospital-user',
+            'icon' => 'fas fa-user-injured',
             'label_color' => 'success',
+            'classes' => 'text-bold text-white',
         ],
         [
             'text' => 'Jadwal',
             'url' => 'jadwal',
-            'icon' => 'far fa-fw fa-calendar-alt',
+            'icon' => 'fas fa-calendar-check',
+            'label_color' => 'info',
+            'classes' => 'text-bold text-white',
         ],
         [
             'text' => 'Riwayat',
             'url' => 'riwayat',
-            'icon' => 'far fa-fw fa-calendar-alt',
+            'icon' => 'fas fa-history',
+            'label_color' => 'warning',
+            'classes' => 'text-bold text-white',
         ],
 
     ],
